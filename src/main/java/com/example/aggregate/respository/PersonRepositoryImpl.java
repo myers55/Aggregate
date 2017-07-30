@@ -34,6 +34,19 @@ public class PersonRepositoryImpl implements PersonRepository {
         return jdbcTemplate.query(SELECT_SQL, new PersonMapper());
     }
 
+    private final String UPDATE_SQL = "update person set firstName=?, lastName=? where id=?";
+    @Override
+    public void update(Person person) {
+        jdbcTemplate.update(UPDATE_SQL, person.getFirstName(), person.getLastName(), person.getId());
+    }
+
+    private final String DELETE_SQL = "delete from person where id=?";
+    @Override
+    public void delete(int id) {
+        jdbcTemplate.update(DELETE_SQL, id);
+    }
+
+
     // Map a row of the result set to a person object
     private static class PersonMapper implements RowMapper<Person> {
         @Override
