@@ -80,6 +80,28 @@ public class PersonRepositoryTest {
         Assert.assertNull(person3);
     }
 
+//    @Test
+//    public void testTransactional() {
+//        Person person1 = createTestPerson();
+//        personRepository.add(person1);
+//
+//        // Cause an error
+//        Person personFirstNameNull = createTestPerson();
+//        personFirstNameNull.setFirstName(null);
+//        try {
+//            personRepository.add(personFirstNameNull);
+//        } catch(Exception e) {
+//            // expected this
+//        }
+//
+//        List<Person> people = personRepository.get();
+//        Person person2 = findInList(people, person1.getFirstName(), person1.getLastName());
+//        Assert.assertNull("The first person created should have rolled back", person2);
+//
+//    }
+
+
+
     private Person createTestPerson() {
         // Get unique names every time this test runs
         String firstName = Long.toString(System.currentTimeMillis());
