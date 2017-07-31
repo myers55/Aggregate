@@ -11,6 +11,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.aggregate.common.PersonUtils.createTestPerson;
+import static com.example.aggregate.common.PersonUtils.findInList;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PersonServiceTest {
@@ -37,30 +40,5 @@ public class PersonServiceTest {
         people = personService.get();
         Person person3 = findInList(people, person1.getFirstName(), person1.getLastName());
         Assert.assertNull("The first person created should have rolled back", person3);
-    }
-
-
-
-    private Person createTestPerson() {
-        // Get unique names every time this test runs
-        String firstName = Long.toString(System.currentTimeMillis());
-        String lastName = Long.toString(System.currentTimeMillis());
-
-        Person person = new Person();
-        person.setFirstName(firstName);
-        person.setLastName(lastName);
-        return person;
-    }
-
-
-    private Person findInList(List<Person> people, String first, String last) {
-        // Find the new person in the list
-        boolean found = false;
-        for (Person person : people) {
-            if (person.getFirstName().equals(first) && person.getLastName().equals(last)) {
-                return person;
-            }
-        }
-        return null;
     }
 }

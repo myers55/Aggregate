@@ -1,5 +1,6 @@
 package com.example.aggregate.respository;
 
+import com.example.aggregate.common.PersonUtils;
 import com.example.aggregate.domain.Person;
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,6 +10,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+
+import static com.example.aggregate.common.PersonUtils.createTestPerson;
+import static com.example.aggregate.common.PersonUtils.findInList;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -76,31 +80,7 @@ public class PersonRepositoryTest {
         personRepository.delete(person2.getId());
 
         people = personRepository.get();
-        Person person3 = findInList(people, person1.getFirstName(), person1.getLastName());
+        Person person3 = PersonUtils.findInList(people, person1.getFirstName(), person1.getLastName());
         Assert.assertNull(person3);
-    }
-
-
-    private Person createTestPerson() {
-        // Get unique names every time this test runs
-        String firstName = Long.toString(System.currentTimeMillis());
-        String lastName = Long.toString(System.currentTimeMillis());
-
-        Person person = new Person();
-        person.setFirstName(firstName);
-        person.setLastName(lastName);
-        return person;
-    }
-
-
-    private Person findInList(List<Person> people, String first, String last) {
-        // Find the new person in the list
-        boolean found = false;
-        for (Person person : people) {
-            if (person.getFirstName().equals(first) && person.getLastName().equals(last)) {
-                return person;
-            }
-        }
-        return null;
     }
 }
