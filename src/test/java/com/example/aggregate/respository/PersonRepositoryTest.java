@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.example.aggregate.common.PersonUtils.createTestPerson;
@@ -83,4 +86,37 @@ public class PersonRepositoryTest {
         Person person3 = PersonUtils.findInList(people, person1.getFirstName(), person1.getLastName());
         Assert.assertNull(person3);
     }
+    @Test
+    public void testDeleteMuliple() {
+        Person one = new Person();
+        one.setFirstName("Jackson");
+        one.setLastName("Levi");
+
+        Person two = new Person();
+        two.setFirstName("Dylan");
+        two.setLastName("Myers");
+
+        personRepository.add(one);
+        personRepository.add(two);
+
+        List<Person> people = personRepository.get();
+
+        List<Integer> ids = Arrays.asList(people.get(0).getId(), people.get(1).getId());
+
+        personRepository.deleteAll(ids);
+
+//        Assert.assertNull(personRepository.getById(one.getId()));
+//        Assert.assertNull(personRepository.getById(two.getId()));
+
+        people = personRepository.get();
+        Assert.assertTrue(people.isEmpty());
+        //create a person
+        // create a second person
+        // add to database
+        // get people from the database
+        // remove people from the database
+        // get people from the database(no one should be in there)
+
+    }
+
 }
